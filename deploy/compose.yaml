@@ -1,0 +1,32 @@
+services:
+  quantum-shield-paypal:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: quantum-shield-paypal:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18090:18090"
+    environment:
+      # Required. Generate with: openssl rand -hex 32
+      QS_API_TOKEN: "${QS_API_TOKEN:?set QS_API_TOKEN in .env}"
+      QS_MERCHANT_ID: "${QS_MERCHANT_ID:-merchant_local}"
+      # The container remains Sandbox-only. Add credentials through the
+      # authenticated dashboard; the server encrypts them into the data volume.
+      PAYPAL_ENVIRONMENT: sandbox
+    volumes:
+      - qs-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:18090/api/health"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+volumes:
+  qs-data:

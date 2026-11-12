@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Quantum Shield PayPal — Payment Security</title>
+<style>
+:root{--bg:#090f14;--panel:#101a20;--panel2:#142229;--line:#25363d;--txt:#e7f0ef;--mut:#91a5a6;--blue:#32c4ab;--cyan:#45d8c2;--green:#4bd1a0;--red:#f07778;--amber:#e8b968}
+*{box-sizing:border-box}html,body{margin:0;background:radial-gradient(1100px 650px at 10% -10%,#18302d 0%,var(--bg) 58%);color:var(--txt);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-feature-settings:"ss01" on}
+body{min-height:100vh}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{border-right:1px solid var(--line);padding:26px 18px;background:linear-gradient(180deg,#070c17,#05070d);position:sticky;top:0;height:100vh}
+.brand{display:flex;gap:11px;align-items:center;margin-bottom:34px}
+.mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(145deg,#153e8f,#22d3ee);box-shadow:0 0 24px #1d4ed855;display:grid;place-items:center;font-weight:800;color:#eaf6ff;font-size:15px}
+.brand b{display:block;font-size:15px;letter-spacing:.2px}.brand span{font-size:11px;color:var(--mut)}
+nav button{width:100%;text-align:left;background:transparent;border:0;color:var(--mut);padding:11px 13px;border-radius:9px;font:inherit;font-size:13.5px;cursor:pointer;margin:2px 0;transition:.15s}
+nav button:hover{background:#0e1730;color:var(--txt)}nav button.on{background:linear-gradient(90deg,#122550,#0b1730);color:#fff;box-shadow:inset 2px 0 0 var(--blue)}
+.side-foot{position:absolute;bottom:22px;left:18px;right:18px;font-size:11px;color:#5d6f90;line-height:1.6}
+main{padding:30px 36px 60px;max-width:1500px;width:100%}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:26px}
+h1{font-size:25px;margin:0 0 5px;letter-spacing:-.4px}.sub{color:var(--mut);font-size:13px}
+.status{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--mut);border:1px solid var(--line);padding:8px 12px;border-radius:99px;background:#0a1120}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.dot.off{background:var(--red);box-shadow:0 0 10px var(--red)}
+.grid{display:grid;gap:15px}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:1.5fr 1fr}
+.card{background:linear-gradient(160deg,#142127,#10191f 70%);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 12px 32px #0002}
+.card h3{margin:0 0 14px;font-size:13px;color:var(--mut);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.metric{font-size:30px;font-weight:700;letter-spacing:-1px}.metric small{font-size:12px;color:var(--mut);font-weight:400;letter-spacing:0}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:99px;font-size:11px;border:1px solid}
+.ok{color:#7ee2a8;border-color:#1b5d3c;background:#0c2419}.bad{color:#ff9c9c;border-color:#6b2525;background:#251010}.warn{color:#ffd28a;border-color:#6b5220;background:#241c0b}.info{color:#9ecbff;border-color:#25456e;background:#0d1c33}
+table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;color:#6d80a2;font-size:11px;text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:12px 10px;border-bottom:1px solid #101a2e;vertical-align:top}tr:hover td{background:#0b1528}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#b6c8e8}
+.muted{color:var(--mut)}.red{color:#ff8e8e}.green{color:#72e6a5}.blue{color:#7db6ff}
+button.act{background:#123b36;border:1px solid #267568;color:#d7f7ee;padding:9px 14px;border-radius:9px;cursor:pointer;font:inherit;font-size:13px;font-weight:650;transition:background .15s,border-color .15s,transform .15s}
+button.act:hover{background:#1a3468}
+input,select,textarea{width:100%;background:#070d1a;border:1px solid #1e3152;color:var(--txt);border-radius:8px;padding:10px;font:inherit;font-size:13px;outline:none}
+input:focus,select:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}button:disabled{opacity:.55;cursor:wait}
+dialog{background:#101a20;color:var(--txt);border:1px solid #35515a;border-radius:14px;padding:22px;max-width:min(480px,calc(100vw - 28px));width:100%;box-shadow:0 24px 80px #000b}dialog::backdrop{background:#020609bb;backdrop-filter:blur(3px)}dialog h2{font-size:18px;margin:0 0 10px}dialog p{color:var(--mut);line-height:1.6}dialog menu{display:flex;justify-content:flex-end;gap:10px;padding:0;margin:18px 0 0}label{font-size:11px;color:var(--mut);display:block;margin:0 0 5px}
+.form{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form .wide{grid-column:1/-1}
+.tabs{display:none}.tabs.on{display:block;animation:appear .18s ease-out}@keyframes appear{from{opacity:.7;transform:translateY(3px)}to{opacity:1;transform:none}}
+pre{background:#060b15;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;max-height:420px;font-size:12px;color:#b9cdf0}
+.profile{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid #101a2e}.profile:last-child{border:0}
+.lab-row{border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:9px;background:#08101f}
+.lab-head{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px}.lab-meta{font-size:11.5px;color:var(--mut);margin-top:6px;line-height:1.6}
+.bar{height:8px;border-radius:99px;background:#0e1a30;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#22d3ee)}
+.empty{padding:26px;text-align:center;color:#607394;font-size:13px}
+.toast{position:fixed;right:20px;bottom:20px;background:#0d1b33;border:1px solid #2b4c83;padding:12px 16px;border-radius:10px;font-size:13px;display:none;max-width:420px;box-shadow:0 10px 40px #0008;z-index:20}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.shell{grid-template-columns:1fr}aside{position:static;height:auto;border-right:0;border-bottom:1px solid var(--line)}.side-foot{position:static;margin-top:18px}main{padding:22px}nav{display:flex;overflow:auto;gap:5px}nav button{white-space:nowrap;width:auto}}
+@media(max-width:600px){.g4{grid-template-columns:1fr}.form{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside>
+  <div class="brand"><div class="mark">QS</div><div><b>Quantum Shield</b><span>PayPal Payment Security</span></div></div>
+  
+<nav>
+    <button class="on" data-tab="overview">Overview</button>
+    <button data-tab="payments">Payments</button>
+    <button data-tab="protection">Protection</button>
+    <button data-tab="events">Security Events</button>
+    <button data-tab="evidence">Evidence &amp; Audit</button>
+    <button data-tab="setup">PayPal Setup</button>
+    <button data-tab="settings">Settings</button>
+  </nav>
+  <div class="side-foot">ML-KEM-768 · ML-DSA-65<br/>AES-256-GCM · HKDF-SHA-256<br/><span id="footVer">PayPal Sandbox only</span></div>
+</aside>
+<main>
+<header>
+  <div><h1 id="pageTitle">Security Overview</h1><div class="sub" id="pageSub">Live state from the Rust security core. No simulated metrics.</div></div>
+  <div class="status"><span class="dot" id="healthDot"></span><span id="healthText">Connecting…</span></div>
+</header>
+
+<section class="tabs on" id="tab-overview">
+  <div class="grid g4" style="margin-bottom:15px">
+    <div class="card"><h3>Verified transactions</h3><div class="metric green" id="mVerified">—</div><div class="muted" style="font-size:12px">evidence-backed captures</div></div>
+    <div class="card"><h3>Rejected events</h3><div class="metric red" id="mRejected">—</div><div class="muted" style="font-size:12px">deterministic policy rejects</div></div>
+    <div class="card"><h3>Ledger records</h3><div class="metric" id="mEvidence">—</div><div class="muted" style="font-size:12px">hash-chained evidence</div></div>
+    <div class="card"><h3>PayPal Sandbox</h3><div class="metric" id="mPaypal" style="font-size:20px">—</div><div class="muted" style="font-size:12px" id="mPaypalSub">configuration</div></div>
+    <div class="card"><h3>Merchant payments</h3><div class="metric" id="mPayments">—</div><div class="muted" style="font-size:12px">records in this merchant ledger</div></div>
+    <div class="card"><h3>Captured amount</h3><div class="metric" id="mCapturedValue" style="font-size:20px">—</div><div class="muted" style="font-size:12px">captured transaction totals by currency</div></div>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h3>Recent security events</h3><div id="overviewEvents" class="empty">Loading…</div></div>
+    <div class="card"><h3>Cryptographic profile</h3>
+      <div class="profile"><span>Key establishment</span><span class="badge info">ML-KEM-768</span></div>
+      <div class="profile"><span>Authorization signatures</span><span class="badge info">ML-DSA-65</span></div>
+      <div class="profile"><span>Data protection</span><span class="badge ok">AES-256-GCM</span></div>
+      <div class="profile"><span>Key derivation</span><span class="badge ok">HKDF-SHA-256</span></div>
+      <div class="profile"><span>Active key</span><span class="mono" id="activeKey">—</span></div>
+      <div class="profile"><span>Key state</span><span id="keyState" class="badge">—</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="tabs" id="tab-payments">
+  <div class="grid g2" style="margin-bottom:15px;grid-template-columns:1fr 1.2fr">
+    <div class="card"><h3>Create payment intent</h3>
+      <form id="payForm" class="form">
+        <div><label for="paymentId">Payment ID</label><input id="paymentId" name="id" required pattern="[A-Za-z0-9_-]{1,64}" placeholder="pay_demo_001"/></div>
+        <div><label for="paymentMerchant">Merchant ID (server configured)</label><input id="paymentMerchant" name="merchant_id" required readonly value="merchant_local"/></div>
+        <div><label for="paymentAmount">Amount (minor units)</label><input id="paymentAmount" name="amount_minor" type="number" min="1" max="100000000" step="1" required value="1299"/></div>
+        <div><label for="paymentCurrency">Currency</label><input id="paymentCurrency" name="currency" required value="USD" maxlength="3" pattern="[A-Z]{3}"/></div>
+        <div class="wide"><label for="paymentDescription">Description</label><input id="paymentDescription" name="description" maxlength="200" value="Sandbox demo purchase"/></div>
+        <div class="wide"><label for="paymentIdempotency">Idempotency key</label><input id="paymentIdempotency" name="idempotency_key" required pattern="[A-Za-z0-9_-]{1,108}" placeholder="idem_demo_001"/></div>
+        <div class="wide"><button class="act" type="submit">Create Sandbox order</button> <span class="muted" id="payMsg" style="font-size:12px"></span><div id="orderResult" class="muted" style="margin-top:10px" role="status"></div></div>
+      </form>
+    </div>
+    <div class="card"><h3>Payment security model</h3>
+      <div class="muted" style="font-size:13px;line-height:1.8">
+        Payment intents are validated locally, persisted in SQLite with unique idempotency constraints, and bound to exactly one PayPal Sandbox order. The browser never marks a payment as paid. Capture is confirmed only through PayPal's capture API followed by an authoritative order lookup. Webhooks must pass PayPal signature verification and reconciliation against the same authoritative order.
+      </div>
+      <div style="margin-top:14px"><span class="badge ok">browser is not trusted</span> <span class="badge info">server-side capture</span> <span class="badge info">replay protected</span></div>
+    </div>
+  </div>
+  <div class="card"><h3>Payments</h3><label for="paymentSearch">Search payments</label><input id="paymentSearch" type="search" placeholder="ID, merchant, state, or order"><label for="paymentStateFilter">Filter by state</label><select id="paymentStateFilter"><option value="">All states</option><option value="created">Created</option><option value="pending">Pending</option><option value="authorized">Authorized</option><option value="captured">Captured</option><option value="failed">Failed</option></select><div id="paymentsTable" class="empty">Loading…</div></div>
+</section>
+
+<section class="tabs" id="tab-settings">
+  <div class="grid g2" style="margin-bottom:15px">
+    <div class="card"><h3>Application configuration</h3><div class="profile"><span>Service</span><span id="settingsService" class="mono">Loading…</span></div><div class="profile"><span>Version</span><span id="settingsVersion" class="mono">—</span></div><div class="profile"><span>Uptime</span><span id="settingsUptime" class="mono">—</span></div><div class="profile"><span>Storage</span><span id="settingsStorage" class="mono">—</span></div><div class="profile"><span>PayPal</span><span id="settingsPaypal" class="badge warn">Not verified</span></div></div>
+    <div class="card"><h3>Effective security settings</h3><div class="profile"><span>Dashboard session</span><span class="mono">Loopback · HttpOnly · SameSite=Strict · 1 hour</span></div><div class="profile"><span>Cookie-authenticated writes</span><span class="mono">Exact same-origin required</span></div><div class="profile"><span>Maximum request body</span><span class="mono">1 MiB</span></div><div class="profile"><span>API rate limits</span><span class="mono">120 reads / 20 mutations per minute</span></div><div class="profile"><span>PayPal environment</span><span class="badge warn">Sandbox only in dashboard</span></div><div class="profile"><span>Backups</span><span class="badge warn">No automated backup configured</span></div><div class="profile"><span>Evidence</span><span class="mono">Signed records · see Evidence &amp; Audit</span></div></div>
+  </div>
+  <div class="card"><h3>Diagnostics</h3><p class="muted">Run service, audit-chain, deterministic security-lab, and evidence checks against current application data.</p><button class="act" id="runQuickChecks">Run diagnostics</button> <span id="quickStatus" class="muted"></span><div id="quickResults" style="margin-top:12px"></div></div>
+  <div class="card" style="margin-top:15px"><h3>Verified PayPal disputes</h3>
+    <p class="muted" style="font-size:13px">Dispute lifecycle notifications are recorded only after PayPal webhook signature verification. Capture/payment correlation is best-effort; unmatched events remain visible as uncorrelated records. This view does not submit representment or resolve disputes automatically.</p>
+    <div id="disputesTable" class="empty">Loading…</div>
+  </div>
+</section>
+
+<section class="tabs" id="tab-protection">
+  <div class="card" style="margin-bottom:15px"><h3>Automated-agent policy signal</h3><p class="muted" style="font-size:13px;line-height:1.7;margin:0">The gateway can match configured User-Agent strings as a policy signal. User-Agent values are spoofable; matching is not adaptive AI detection and does not identify every automated agent. The PayPal payment service does not infer agent identity from this header.</p></div>
+  <div class="grid g2">
+    <div class="card"><h3>Active cryptographic algorithms</h3>
+      <div class="profile"><span><b>ML-KEM-768</b><br><span class="muted">FIPS 203 key establishment for per-envelope keys</span></span><span class="badge ok" id="kemBadge">Not loaded</span></div>
+      <div class="profile"><span><b>ML-DSA-65</b><br><span class="muted">FIPS 204 authorization and evidence signatures</span></span><span class="badge ok" id="dsaBadge">Not loaded</span></div>
+      <div class="profile"><span><b>AES-256-GCM</b><br><span class="muted">Authenticated payment-data encryption</span></span><span class="badge ok">Active</span></div>
+      <div class="profile"><span><b>HKDF-SHA-256</b><br><span class="muted">Context-bound key derivation</span></span><span class="badge ok">Active</span></div>
+    </div>
+    <div class="card"><h3>Key lifecycle</h3>
+      <div class="profile"><span>Key ID</span><span class="mono" id="keyId">—</span></div>
+      <div class="profile"><span>Version</span><span id="keyVersion">—</span></div>
+      <div class="profile"><span>Status</span><span id="keyStatus2" class="badge">—</span></div>
+      <div class="profile"><span>ML-KEM fingerprint</span><span class="mono" id="kemFp" style="max-width:300px;word-break:break-all;text-align:right">—</span></div>
+      <div class="profile"><span>ML-DSA fingerprint</span><span class="mono" id="dsaFp" style="max-width:300px;word-break:break-all;text-align:right">—</span></div>
+      <div class="profile"><span>Transport</span><span class="badge warn">PayPal HTTPS is not PQC-negotiated</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:15px"><h3>Deterministic protection checks</h3><p class="muted">Run the implemented security scenarios against the current deterministic rules. Results apply only to these scenarios.</p><button class="act" id="runLab">Run security checks</button> <span id="labSummary" role="status"></span><div id="labResults" style="margin-top:12px"></div></div>
+  <div class="card" style="margin-top:15px"><h3>Envelope and protocol compatibility</h3>
+    <p class="muted" style="font-size:13px;line-height:1.8;margin:0">Payments use versioned hybrid envelopes: ML-KEM-768 encapsulation → HKDF-SHA-256 with SHA-256 context binding → AES-256-GCM. Each envelope names its algorithm, key ID and version. ML-DSA-65 signs authorizations and evidence. This protects merchant payment data and records under merchant control. It does not claim to secure PayPal's internal infrastructure or to make the PayPal HTTPS API post-quantum.</p>
+  </div>
+</section>
+
+<section class="tabs" id="tab-events">
+  <div class="card"><h3>Security events (hash-chained)</h3><label for="eventSearch">Search events</label><input id="eventSearch" type="search" placeholder="Event, severity, payment, or detail"><label for="eventSeverityFilter">Filter by severity</label><select id="eventSeverityFilter"><option value="">All severities</option><option value="verified">Verified</option><option value="warning">Warning</option><option value="rejected">Rejected</option><option value="info">Info</option></select><div id="eventsTable" class="empty">Loading…</div></div>
+</section>
+
+
+
+<section class="tabs" id="tab-setup">
+  <div class="card"><h3>PayPal Sandbox connection</h3><p class="muted">Credentials are sent to this authenticated local service and encrypted before storage. Sandbox OAuth status is checked after saving. The Client Secret is never stored in this browser. A Webhook ID is only needed when configuring webhook verification.</p><div class="form"><div><label for="ppClientId">Client ID</label><input id="ppClientId" required autocomplete="username"></div><div><label for="ppClientSecret">Client Secret</label><input id="ppClientSecret" type="password" required autocomplete="new-password"></div><div><label for="ppWebhookId">Webhook ID (optional)</label><input id="ppWebhookId" autocomplete="off"></div></div><p><span class="badge warn">SANDBOX ENVIRONMENT</span> <span id="ppStatus" class="badge info">Checking status…</span></p><button class="act" id="ppSave">Save &amp; verify Sandbox connection</button> <button class="act" id="ppClear">Clear configuration</button> <span id="ppMessage" class="muted" role="status"></span></div>
+  <div class="grid g2">
+    <div class="card"><h3>Service health</h3><pre id="healthJson">Loading…</pre></div>
+    <div class="card"><h3>Configuration checks</h3>
+      <div class="profile"><span>Database engine</span><span id="cfgDatabase" class="badge">Checking…</span></div>
+      <div class="profile"><span>PayPal credentials</span><span id="cfgPaypal" class="badge">—</span></div>
+      <div class="profile"><span>Webhook endpoint</span><span class="mono">POST /api/paypal/webhooks</span></div>
+      <div class="profile"><span>Dashboard</span><span class="mono">GET /</span></div>
+      <div class="profile"><span>Request body limit</span><span class="mono">1 MiB</span></div>
+      <div class="profile"><span>Key status</span><span id="cfgKey" class="badge">Checking…</span></div>
+      <div class="profile"><span>Webhook identifier</span><span id="cfgWebhook" class="badge">Checking…</span></div>
+      <div class="profile"><span>Audit chain integrity</span><span id="auditState" class="badge">—</span></div>
+      
+    </div>
+  </div>
+
+</section>
+
+<section class="tabs" id="tab-evidence"><div class="card"><h3>Evidence &amp; audit</h3><p class="muted">Verify signed evidence records and the audit chain before exporting a report.</p><button class="act" id="verifyEvidence">Verify all evidence</button> <button class="act" id="exportEvidence">Export evidence</button> <button class="act" id="refreshDashboard">Refresh</button><span class="muted" id="evidenceMsg"></span><div id="evidenceTable" class="empty" style="margin-top:16px">Loading evidence…</div></div><div class="card" style="margin-top:15px"><h3>Audit and evidence chain status</h3><div class="profile"><span>Security event audit</span><span id="auditStateEvidence" class="badge">Checking…</span></div><div class="profile"><span>Signed evidence chain</span><span id="evidenceChainState" class="badge">Checking…</span></div></div></section>
+</main>
+</div>
+<dialog id="actionDialog" aria-labelledby="actionTitle"><form method="dialog"><h2 id="actionTitle">Confirm operation</h2><p id="actionPrompt"></p><div id="actionInputWrap" hidden><label for="actionAmount">Refund amount (minor units)</label><input id="actionAmount" type="number" min="1" step="1"></div><menu><button class="act" value="cancel">Cancel</button><button class="act" id="actionConfirm" value="confirm">Confirm</button></menu></form></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let overview=null;
+let eventQuery='';
+let paymentQuery='';
+let evidenceRecords=[];
+let paymentStateFilter='';
+let eventSeverityFilter='';
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function money(a,c){return (Number(a)/100).toFixed(2)+' '+esc(c)}
+function toast(msg,bad=false){const t=$('#toast');t.textContent=msg;t.style.display='block';t.style.borderColor=bad?'#7a2d2d':'#2b4c83';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',4500)}
+function badge(sev){const cls=sev==='rejected'?'bad':sev==='verified'?'ok':sev==='warning'?'warn':'info';return `<span class="badge ${cls}">${esc(sev)}</span>`}
+async function api(path,opts){const headers={'Content-Type':'application/json',...(opts?.headers||{})};const r=await fetch(path,{...opts,headers,credentials:'same-origin'});const text=await r.text();let data;try{data=JSON.parse(text)}catch{data={error:text}}if(!r.ok)throw new Error(data.error||`HTTP ${r.status}`);return data}
+
+function setTab(name){
+  $$('nav button').forEach(b=>{const active=b.dataset.tab===name;b.classList.toggle('on',active);b.setAttribute('aria-current',active?'page':'false')});
+  $$('.tabs').forEach(t=>{const active=t.id==='tab-'+name;t.classList.toggle('on',active);t.setAttribute('aria-hidden',String(!active))});
+  $('#pageTitle').textContent={overview:'Overview',payments:'Payments',settings:'Settings',protection:'Protection',events:'Security Events',lab:'Security Lab',setup:'PayPal Setup',evidence:'Evidence & Audit'}[name];
+  $('#pageSub').textContent={overview:'Live service and payment security status.',payments:'Create an order, approve it in PayPal, then capture explicitly.',settings:'Effective application, session, storage, and diagnostics settings.',protection:'Cryptographic protections and their limits.',events:'Recent security events from the audit ledger.',lab:'Run deterministic security scenarios.',setup:'Connect a PayPal Sandbox account.',evidence:'Verify evidence signatures and audit integrity.'}[name];
+}
+$$('nav button').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+async function load(){
+  try{
+    const [h,o,paypalStatus]=await Promise.all([api('/api/health'),api('/api/overview'),api('/api/paypal/status').catch(e=>({paypal_configured:false,error:e.message}))]);
+    overview=o;
+    $('#payForm').elements.namedItem('merchant_id').value=o.merchant_id||'';
+    $('#healthDot').classList.toggle('off',h.status!=='ok');
+    $('#healthText').textContent=`Service ${h.status==='ok'?'healthy':'degraded'} · ${h.version||'version unavailable'}`;
+    $('#footVer').textContent=`v${h.version} · PayPal Sandbox only`;
+    $('#mVerified').textContent=o.counts.verified_transactions;
+    $('#mRejected').textContent=o.counts.rejected_events;
+    $('#mEvidence').textContent=o.counts.evidence_records;
+    const merchantPayments=Array.isArray(o.payments)?o.payments:[];$('#mPayments').textContent=merchantPayments.length;
+    const totals={};for(const payment of merchantPayments){if(String(payment.state).toLowerCase()==='captured'){const c=payment.currency;totals[c]=(totals[c]||0)+Number(payment.amount_minor||0)}}
+    $('#mCapturedValue').textContent=Object.keys(totals).length?Object.entries(totals).map(([c,n])=>money(n,c)).join(' · '):'0.00';
+    const paypalConnected=paypalStatus.oauth_token_acquired===true;
+    const config=await api('/api/paypal/config').catch(e=>({configured:false,webhook_id_configured:false,error:e.message}));
+    const credentialsConfigured=config.configured===true||paypalStatus.paypal_configured===true;
+    const paypalLabel=paypalConnected?'Sandbox OAuth verified':credentialsConfigured?'Credentials saved · OAuth not verified':(paypalStatus.error||'Sandbox credentials not configured');
+    $('#mPaypal').innerHTML=paypalConnected?'<span class="green">Connected</span>':'<span class="red">Not verified</span>';
+    $('#mPaypalSub').textContent=paypalConnected?'Sandbox OAuth validated':paypalLabel;
+    $('#cfgPaypal').className='badge '+(paypalConnected?'ok':credentialsConfigured?'warn':'bad');
+    $('#cfgPaypal').textContent=paypalConnected?'OAuth verified (Sandbox)':paypalLabel;
+    const databaseAvailable=h.database_status==='available';
+    $('#cfgDatabase').className='badge '+(databaseAvailable?'ok':'bad');$('#cfgDatabase').textContent=`${h.database||'Database'} · ${h.database_status||'status unknown'}`;
+    $('#cfgKey').className='badge '+(h.key_status?.status==='active'?'ok':'warn');$('#cfgKey').textContent=h.key_status?.status||'Unavailable';
+    $('#cfgWebhook').className='badge '+(config.webhook_id_configured?'ok':'warn');$('#cfgWebhook').textContent=config.webhook_id_configured?'Configured':'Not configured';
+    $('#ppStatus').className='badge '+(paypalConnected?'ok':credentialsConfigured?'warn':'bad');
+    $('#ppStatus').textContent=paypalConnected?'Connected · Sandbox OAuth verified':paypalLabel;
+    $('#healthJson').textContent=JSON.stringify(h,null,2);
+    const audit=await api('/api/audit/verify').catch(e=>({verified:false,error:e.message}));
+    const ae=$('#auditState');ae.className='badge '+(audit.verified?'ok':'bad');ae.textContent=audit.verified?`${audit.entries} entries verified`:'chain verification failed';
+    renderEvents(o.events,'#overviewEvents',6);
+    const eventList=await api('/api/events');
+    overview.events=eventList;
+    renderEvents(eventList,'#eventsTable',100);
+    renderPayments(o.payments);
+    $('#settingsService').textContent=h.service||'—';
+    $('#settingsVersion').textContent=h.version||'—';
+    $('#settingsUptime').textContent=`${Number(h.uptime_seconds||0)} seconds`;
+    $('#settingsStorage').textContent=`${h.database||'Database'} · ${h.database_status||'status unknown'}`;
+    $('#settingsPaypal').className='badge '+(paypalConnected?'ok':credentialsConfigured?'warn':'bad');
+    $('#settingsPaypal').textContent=paypalConnected?'Sandbox OAuth verified':credentialsConfigured?'Credentials saved · OAuth not verified':'Not connected';
+    evidenceRecords=await api('/api/evidence');
+    renderEvidence(evidenceRecords);
+    $('#auditStateEvidence').className='badge '+(audit.verified?'ok':'bad');
+    $('#auditStateEvidence').textContent=audit.verified?`${audit.entries} entries verified`:'NOT VERIFIED';
+    const evidenceChain=await api('/api/evidence/verify-chain').catch(e=>({tested:true,verified:false,error:e.message}));
+    $('#evidenceChainState').className='badge '+(evidenceChain.verified?'ok':evidenceChain.tested?'bad':'warn');
+    $('#evidenceChainState').textContent=evidenceChain.verified?`${evidenceChain.records} records verified`:evidenceChain.tested?'VERIFICATION FAILED':'NO EVIDENCE — NOT TESTED';
+    const disputeData=await api('/api/disputes');renderDisputes(disputeData.disputes||[]);
+    if(o.keys){
+      const k=o.keys;
+      $('#activeKey').textContent=k.key_id;
+      $('#keyState').className='badge '+(k.status==='active'?'ok':'bad');$('#keyState').textContent=k.status;
+      $('#keyId').textContent=k.key_id;$('#keyVersion').textContent=k.version;
+      $('#keyStatus2').className='badge '+(k.status==='active'?'ok':'bad');$('#keyStatus2').textContent=k.status;
+      $('#kemFp').textContent=k.ml_kem_fingerprint_sha256;
+      $('#dsaFp').textContent=k.ml_dsa_fingerprint_sha256;
+      $('#kemBadge').textContent='Active · FIPS 203';$('#dsaBadge').textContent='Active · FIPS 204';
+    }
+    return true;
+  }catch(e){$('#healthDot').classList.add('off');$('#healthText').textContent='Service unavailable';toast(e.message,true);return false}
+}
+function renderEvents(events,sel,limit){
+  const el=$(sel);
+  if(sel==='#eventsTable'){if(eventQuery){const q=eventQuery.toLowerCase();events=(events||[]).filter(e=>[e.kind,e.severity,e.paymentId,e.detail].some(v=>String(v||'').toLowerCase().includes(q)));}if(eventSeverityFilter)events=(events||[]).filter(e=>String(e.severity||'').toLowerCase()===eventSeverityFilter);}
+  if(!events||!events.length){el.className='empty';el.textContent='No security events recorded yet.';return}
+  el.className='';
+  el.innerHTML=`<table><thead><tr><th>Time</th><th>Event</th><th>Severity</th><th>Payment</th><th>Audit hash</th></tr></thead><tbody>${events.slice(0,limit).map(e=>{const hash=typeof e.entryHash==='string'?e.entryHash:'';const timestamp=Number(e.createdAt);return `<tr><td class="mono">${Number.isFinite(timestamp)&&timestamp>0?new Date(timestamp*1000).toLocaleString():'—'}</td><td>${esc(e.kind)}<div class="muted" style="font-size:11.5px">${esc(e.detail||'')}</div></td><td>${badge(e.severity)}</td><td class="mono">${esc(e.paymentId||'—')}</td><td class="mono" title="${esc(hash||'No hash supplied')}">${hash?esc(hash.slice(0,14))+'…':'—'}</td></tr>`}).join('')}</tbody></table>`;
+}
+function renderDisputes(disputes){
+  const el=$('#disputesTable');
+  if(!disputes.length){el.className='empty';el.textContent='No verified dispute events recorded.';return}
+  el.className='';
+  el.innerHTML=`<table><thead><tr><th>Received</th><th>Dispute</th><th>Event</th><th>Payment</th><th>Capture</th><th>Correlation</th></tr></thead><tbody>${disputes.map(d=>`<tr><td class="mono">${new Date(Number(d.received_at)*1000).toLocaleString()}</td><td class="mono">${esc(d.dispute_id)}</td><td>${esc(d.event_type)}</td><td class="mono">${esc(d.payment_id||'—')}</td><td class="mono">${esc(d.capture_id||'—')}</td><td>${d.payment_id?'<span class="badge ok">linked</span>':'<span class="badge warn">unmatched</span>'}</td></tr>`).join('')}</tbody></table>`;
+}
+function renderPayments(payments){
+  const el=$('#paymentsTable');
+  if(paymentQuery){const q=paymentQuery.toLowerCase();payments=(payments||[]).filter(p=>[p.id,p.merchant_id,p.state,p.paypal_order_id,p.description].some(v=>String(v||'').toLowerCase().includes(q)));}if(paymentStateFilter)payments=(payments||[]).filter(p=>String(p.state||'').toLowerCase()===paymentStateFilter);
+  if(!payments||!payments.length){el.className='empty';el.textContent='No payments yet. Create a validated payment intent above.';return}
+  el.className='';
+  el.innerHTML=`<table><thead><tr><th>Payment</th><th>Merchant</th><th>Amount</th><th>State</th><th>PayPal order</th><th>Refunded / captured</th><th>Evidence</th><th></th></tr></thead><tbody>${payments.map(p=>{const remaining=Math.max(0,Number(p.captured_minor||0)-Number(p.refunded_minor||0));return `<tr><td><span class="mono">${esc(p.id)}</span><div class="muted" style="font-size:11.5px">${esc(p.description)}</div></td><td>${esc(p.merchant_id)}</td><td>${money(p.amount_minor,p.currency)}</td><td><span class="badge ${p.state==='captured'?'ok':p.state==='failed'?'bad':'info'}">${esc(p.state)}</span></td><td class="mono">${esc(p.paypal_order_id||'not bound')}${p.paypal_order_status?`<div class="muted">PayPal: ${esc(p.paypal_order_status)}</div>`:''}</td><td>${p.captured_minor?`${money(p.refunded_minor||0,p.currency)} / ${money(p.captured_minor,p.currency)}`:'—'}</td><td><button class="act" onclick="showEvidence('${esc(p.id)}')">Inspect</button>${p.paypal_order_id?` <button class="act" onclick="viewPayPalOrder('${esc(p.paypal_order_id)}')">Order details</button>`:''}</td><td>${p.state==='pending'||p.state==='authorized'?`<button class="act" onclick="capturePayment('${esc(p.id)}')">Capture</button>`:''}${p.state==='captured'&&remaining>0?` <button class="act" onclick="refundPayment('${esc(p.id)}')">Refund</button>`:''}</td></tr>`}).join('')}</tbody></table>`;
+}
+function renderEvidence(records){
+  const el=$('#evidenceTable');
+  if(!records||!records.length){el.className='empty';el.textContent='NO EVIDENCE — verification has not been tested because no evidence records exist.';return}
+  el.className='';
+  el.innerHTML=`<table><thead><tr><th>Sequence</th><th>Payment</th><th>Amount</th><th>State</th><th>Created</th><th>Integrity</th></tr></thead><tbody>${records.map(r=>`<tr><td>${esc(r.sequence)}</td><td class="mono">${esc(r.payment_id)}</td><td>${money(r.amount_minor,r.currency)}</td><td>${esc(r.state)}</td><td>${new Date(Number(r.created_at)*1000).toLocaleString()}</td><td class="mono" title="${esc(r.chain_hash)}">${esc(String(r.chain_hash||'').slice(0,16))}…</td></tr>`).join('')}</tbody></table>`;
+}
+window.showEvidence=async id=>{
+  try{const d=await api('/api/payments/'+encodeURIComponent(id));
+    if(!d.evidence){toast('No evidence record yet — capture has not been reconciled.',true);return}
+    const rec=d.evidence;const ok=await api('/api/evidence/verify',{method:'POST',body:JSON.stringify(rec)}).catch(e=>({verified:false,error:e.message}));
+    toast(ok.verified?'Evidence signature and hash verified.':'Evidence verification failed: '+ok.error,!ok.verified);
+    alert(JSON.stringify(rec,null,2));
+  }catch(e){toast(e.message,true)}
+};
+window.viewPayPalOrder=async orderId=>{
+  try{
+    const data=await api('/api/paypal/orders/'+encodeURIComponent(orderId));
+    const order=data.order||{};const details=$('#orderResult');details.replaceChildren();
+    const summary=document.createElement('div');summary.textContent=`PayPal order ${order.id||orderId} · ${order.status||'status unavailable'}${data.reconciled?' · reconciled':''}`;details.appendChild(summary);
+    const approval=(order.links||[]).find(link=>['approve','payer-action'].includes(String(link.rel||'').toLowerCase())&&String(link.href||'').startsWith('https://'));
+    if(approval){const link=document.createElement('a');link.href=approval.href;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open PayPal Sandbox approval';link.style.color='#45d8c2';details.appendChild(link)}
+    $('#payMsg').textContent='Order details loaded from PayPal.';
+  }catch(e){toast('Could not retrieve PayPal order: '+e.message,true)}
+};
+window.capturePayment=async id=>{
+  if(!await askConfirmation(`Capture PayPal order for payment ${id}? This sends an explicit capture request.`))return;
+  try{const r=await api('/api/payments/'+encodeURIComponent(id)+'/capture',{method:'POST',body:'{}'});toast('Capture reconciled: '+r.status);await load()}catch(e){toast('Capture rejected: '+e.message,true);await load()}
+};
+window.refundPayment=async id=>{
+  try{const details=await api('/api/payments/'+encodeURIComponent(id));const capture=details.capture?.capture_id;if(!capture)throw new Error('No authoritative captured payment record is available.');
+    const remaining=Number(details.capture.amount_minor)-Number(details.capture.refunded_minor);if(!Number.isSafeInteger(remaining)||remaining<=0)throw new Error('No refundable balance remains.');
+    const amount=await askRefund(`Refund payment ${id} (${details.capture.currency}). Remaining refundable balance: ${money(remaining,details.capture.currency)}. The amount is in minor units.`,remaining);if(amount===null)return;
+    const idem=crypto.randomUUID();const result=await api('/api/paypal/captures/'+encodeURIComponent(capture)+'/refund',{method:'POST',headers:{'Idempotency-Key':idem},body:JSON.stringify({amount_minor:amount,currency:details.capture.currency,idempotency_key:idem})});toast(`PayPal refund ${result.refund_status}: ${money(result.total_refunded_minor,details.capture.currency)} refunded of ${money(details.capture.amount_minor,details.capture.currency)}.`);await load();
+  }catch(e){toast('Refund rejected: '+e.message,true);await load()}
+};
+$('#payForm').onsubmit=async ev=>{
+  ev.preventDefault();const f=new FormData(ev.target);const body=Object.fromEntries(f.entries());
+  body.amount_minor=Number(body.amount_minor);body.expires_in=600;$('#payMsg').textContent='Validating…';
+  try{const r=await api('/api/payments',{method:'POST',body:JSON.stringify(body)});
+    $('#payMsg').textContent='Created '+r.payment_id+(r.paypal_order_id?' · PayPal order created':' · PayPal not configured');
+    const details=$('#orderResult');details.replaceChildren();
+    if(r.paypal_order_id){
+      const summary=document.createElement('div');summary.textContent=`PayPal order ${r.paypal_order_id} · ${r.paypal_order_status||'status not returned'}`;details.appendChild(summary);
+      if(r.approval_url){const link=document.createElement('a');link.href=r.approval_url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open PayPal Sandbox approval';link.style.color='#45d8c2';details.appendChild(link);}
+    } else {details.textContent='No PayPal order was created. Configure and verify Sandbox credentials first.';}
+    load();
+  }catch(e){$('#payMsg').textContent='Rejected: '+e.message;toast(e.message,true)}
+};
+$('#runLab').onclick=async()=>{
+  const b=$('#runLab');b.disabled=true;b.textContent='Running…';
+  try{const r=await api('/api/lab/run',{method:'POST',body:'{}'});
+    $('#labSummary').innerHTML=`<span class="badge ${r.passed===r.total?'ok':'bad'}">${r.passed}/${r.total} passed</span>`;
+    $('#labResults').innerHTML=r.results.map(x=>`<div class="lab-row"><div class="lab-head"><span><b>${x.id}. ${esc(x.scenario)}</b></span><span class="badge ${x.passed?'ok':'bad'}">${x.passed?'PASS':'FAIL'}</span></div><div class="lab-meta"><b>Expected:</b> ${esc(x.expected)}<br><b>Actual:</b> ${esc(x.actual)}<br><b>Class:</b> ${esc(x.error_class)}</div></div>`).join('');
+    load();
+  }catch(e){toast(e.message,true)}finally{b.disabled=false;b.textContent='Run security lab'}
+};
+$('#verifyEvidence').onclick=async()=>{
+  const b=$('#verifyEvidence'),msg=$('#evidenceMsg');
+  b.disabled=true;b.textContent='Verifying…';msg.textContent='';
+  try{
+    const list=await api('/api/evidence');
+    if(!list.length){msg.textContent='No evidence records available.';return}
+    const chain=await api('/api/evidence/verify-chain').catch(e=>({verified:false,error:e.message}));
+    let ok=0,failed=0;
+    for(const rec of list){
+      try{
+        const result=await api('/api/evidence/verify',{
+          method:'POST',body:JSON.stringify(rec)
+        });
+        if(result.verified)ok++;else failed++;
+      }catch{failed++}
+    }
+    const chainOk=chain.verified===true;
+    msg.textContent=`${ok}/${list.length} signatures verified · ${failed} failed · evidence chain ${chainOk?'verified':'FAILED'}`;
+    toast(failed||!chainOk?'Evidence verification has failures.':'All evidence records and chain verified.',!!(failed||!chainOk));
+  }catch(e){msg.textContent='Verification error: '+e.message;toast(e.message,true)}
+  finally{b.disabled=false;b.textContent='Verify all evidence'}
+};
+$('#exportEvidence').onclick=async()=>{
+  const b=$('#exportEvidence');b.disabled=true;b.textContent='Exporting…';
+  try{
+    const records=await api('/api/evidence');
+    const audit=await api('/api/audit/verify');
+    const evidence_chain=await api('/api/evidence/verify-chain').catch(e=>({tested:records.length>0,verified:false,error:e.message}));
+    const report={product:'Quantum Shield PayPal',exported_at:new Date().toISOString(),
+      evidence_count:records.length,audit_chain:audit,evidence_chain,evidence:records};
+    const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));
+    const a=document.createElement('a');a.href=url;
+    a.download='quantum-shield-evidence.json';a.click();URL.revokeObjectURL(url);
+    $('#evidenceMsg').textContent=`Exported ${records.length} records.`;
+  }catch(e){toast('Export failed: '+e.message,true)}
+  finally{b.disabled=false;b.textContent='Export evidence'}
+};
+$('#refreshDashboard').onclick=async()=>{const refreshed=await load();toast(refreshed?'Dashboard refreshed from the service.':'Refresh failed; displayed data may be stale.',!refreshed)};
+$('#eventSearch').addEventListener('input',ev=>{eventQuery=ev.target.value;renderEvents(overview?.events||[],'#eventsTable',100)});
+$('#eventSeverityFilter').addEventListener('change',ev=>{eventSeverityFilter=ev.target.value;renderEvents(overview?.events||[],'#eventsTable',100)});
+$('#paymentSearch').addEventListener('input',ev=>{paymentQuery=ev.target.value;renderPayments(overview?.payments||[])});
+$('#paymentStateFilter').addEventListener('change',ev=>{paymentStateFilter=ev.target.value;renderPayments(overview?.payments||[])});
+
+async function runQuickChecks(){
+  const b=$('#runQuickChecks'),status=$('#quickStatus'),out=$('#quickResults');
+  b.disabled=true;b.textContent='Checks running…';out.replaceChildren();
+  let passed=0,failed=0;
+  const row=(name,ok,detail)=>{
+    const el=document.createElement('div');
+    el.textContent=(ok?'✓ PASS  ':'✗ FAIL  ')+name+' — '+detail;
+    el.style.color=ok?'#70d69b':'#ff8585';
+    out.appendChild(el);
+    if(ok)passed++;else failed++;
+    status.textContent=`${passed} passed · ${failed} failed`;
+  };
+  try{
+    status.textContent='Checking service…';
+    try{
+      const h=await api('/api/health');
+      row('Service health',h.status==='ok',h.status||'Unexpected response');
+    }catch(e){row('Service health',false,e.message);throw e}
+
+    status.textContent='Checking dashboard data…';
+    try{
+      const o=await api('/api/overview');
+      row('Dashboard data',!!o.counts,
+        o.counts?'Live overview loaded':'Overview response incomplete');
+    }catch(e){row('Dashboard data',false,e.message)}
+
+    status.textContent='Verifying audit history…';
+    try{
+      const a=await api('/api/audit/verify');
+      row('Audit chain',a.verified===true,
+        a.verified?`${a.entries} entries verified`:a.error||'Verification failed');
+    }catch(e){row('Audit chain',false,e.message)}
+
+    status.textContent='Running security lab…';
+    try{
+      const lab=await api('/api/lab/run',{method:'POST',body:'{}'});
+      row('Security lab',lab.total>0&&lab.passed===lab.total,
+        `${lab.passed}/${lab.total} scenarios passed`);
+      const detail=document.createElement('details');
+      const summary=document.createElement('summary');
+      summary.textContent='View individual security test results';
+      detail.appendChild(summary);
+      for(const r of (lab.results||[])){
+        const line=document.createElement('div');
+        line.textContent=`${r.passed?'PASS':'FAIL'} · ${r.id}. ${r.scenario} — ${r.actual}`;
+        detail.appendChild(line);
+      }
+      out.appendChild(detail);
+    }catch(e){row('Security lab',false,e.message)}
+
+    status.textContent='Verifying evidence records…';
+    try{
+      const records=await api('/api/evidence');
+      const chain=await api('/api/evidence/verify-chain').catch(e=>({verified:false,error:e.message}));
+      let ok=0;
+      for(const rec of records){
+        try{
+          const v=await api('/api/evidence/verify',{
+            method:'POST',body:JSON.stringify(rec)
+          });
+          if(v.verified)ok++;
+        }catch{}
+      }
+      if(records.length){
+        row('Evidence signatures and chain',ok===records.length&&chain.verified===true,`${ok}/${records.length} signatures verified; chain ${chain.verified?'verified':'failed'}`);
+      }else{
+        const el=document.createElement('div');el.textContent='— NOT TESTED  Evidence verification — no evidence records exist.';el.style.color='#e8b968';out.appendChild(el);
+      }
+    }catch(e){row('Evidence verification',false,e.message)}
+
+    status.textContent=`Finished: ${passed} passed · ${failed} failed`;
+    toast(failed?'Checks finished with failures.':'All available checks passed.',!!failed);
+    await load();
+  }catch(e){
+    status.textContent='Service check failed. Start the demo service and try again.';
+  }finally{
+    b.disabled=false;b.textContent='▶ Run all security checks';
+  }
+}
+$('#runQuickChecks')?.addEventListener('click',runQuickChecks);
+
+async function askConfirmation(message){return new Promise(resolve=>{const d=$('#actionDialog');$('#actionInputWrap').hidden=true;$('#actionTitle').textContent='Confirm sensitive operation';$('#actionPrompt').textContent=message;d.addEventListener('close',()=>resolve(d.returnValue==='confirm'),{once:true});d.showModal()})}
+async function askRefund(message,maximum){return new Promise(resolve=>{const d=$('#actionDialog'),input=$('#actionAmount');$('#actionInputWrap').hidden=false;$('#actionTitle').textContent='Confirm PayPal refund';$('#actionPrompt').textContent=message;input.max=String(maximum);input.value=String(maximum);d.addEventListener('close',()=>{const value=d.returnValue==='confirm'?Number(input.value):null;resolve(Number.isSafeInteger(value)&&value>0&&value<=maximum?value:null)},{once:true});d.showModal();input.focus()})}
+setTab('overview');load();setInterval(load,10000);
+$('#ppSave')?.addEventListener('click',async()=>{const b=$('#ppSave'),m=$('#ppMessage');if(!$('#ppClientId').reportValidity()||!$('#ppClientSecret').reportValidity())return;b.disabled=true;b.textContent='Saving securely…';m.textContent='';try{const result=await api('/api/paypal/config',{method:'POST',body:JSON.stringify({client_id:$('#ppClientId').value,client_secret:$('#ppClientSecret').value,webhook_id:$('#ppWebhookId').value})});$('#ppClientSecret').value='';if(result.credentials_saved!==true)throw new Error('The service did not confirm persistent credential storage.');const ok=result.oauth_verified===true;m.textContent=ok?'Sandbox OAuth verified; encrypted credentials saved.':(result.error||'Credentials saved securely, but Sandbox OAuth is not verified.');toast(m.textContent,!ok);await load()}catch(e){$('#ppClientSecret').value='';m.textContent='Save was not confirmed: '+e.message+' Check the current status before retrying.';toast(m.textContent,true)}finally{b.disabled=false;b.textContent='Save & verify Sandbox connection'}});
+$('#ppClear')?.addEventListener('click',async()=>{if(!await askConfirmation('Clear the encrypted Sandbox PayPal configuration? New order and capture requests will stop until credentials are configured again.'))return;const b=$('#ppClear');b.disabled=true;try{await api('/api/paypal/config',{method:'DELETE'});$('#ppMessage').textContent='Saved configuration cleared.';await load()}catch(e){$('#ppMessage').textContent='Configuration was not cleared: '+e.message}finally{b.disabled=false}});
+</script>
+</body>
+</html>
